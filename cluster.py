@@ -92,8 +92,8 @@ A11 = df.loc[:, ["A11_1_slice", "A11_2_slice", "A11_3_slice", "A11_4_slice", "A1
 """
 On inverse les valeurs pour les questions "négatives"
 """
-df["A9_5_slide"] = df["A9_5_slide"].map({1: 4, 2: 3, 3: 2, 4: 1})
-df["A10_6_slide"] = df["A10_6_slide"].map({1: 4, 2: 3, 3: 2, 4: 1})
+A9["A9_5_slice"] = A9["A9_5_slice"].map({1: 4, 2: 3, 3: 2, 4: 1})
+A10["A10_6_slice"] = A10["A10_6_slice"].map({1: 4, 2: 3, 3: 2, 4: 1})
 
 """
 On fait le PCA pour réduire les dimensions pour A9, A10, A11
