@@ -5,6 +5,7 @@ from sklearn.cluster import KMeans
 from sklearn.cluster import DBSCAN
 from scipy.cluster.hierarchy import linkage, dendrogram, fcluster
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 """
 ======================================
@@ -92,8 +93,8 @@ A11 = df.loc[:, ["A11_1_slice", "A11_2_slice", "A11_3_slice", "A11_4_slice", "A1
 """
 On inverse les valeurs pour les questions "négatives"
 """
-df["A9_5_slide"] = df["A9_5_slide"].map({1: 4, 2: 3, 3: 2, 4: 1})
-df["A10_6_slide"] = df["A10_6_slide"].map({1: 4, 2: 3, 3: 2, 4: 1})
+A9["A9_5_slie"] = A9["A9_5_slice"].map({1: 4, 2: 3, 3: 2, 4: 1})
+A10["A10_6_slice"] = A10["A10_6_slice"].map({1: 4, 2: 3, 3: 2, 4: 1})
 
 """
 On fait le PCA pour réduire les dimensions pour A9, A10, A11
@@ -111,9 +112,9 @@ A9_pca_result = A9_pca.fit_transform(A9_normalized)
 A10_pca_result = A10_pca.fit_transform(A10_normalized)
 A11_pca_result = A11_pca.fit_transform(A11_normalized)
 
-A9_pca_df = pd.DataFrame(A9_pca_result, columns=["PCA_value"])
-A10_pca_df = pd.DataFrame(A10_pca_result, columns=["PCA_value"])
-A11_pca_df = pd.DataFrame(A11_pca_result, columns=["PCA_value"])
+A9_pca_df = pd.DataFrame(A9_pca_result, columns=["PCA1_value"])
+A10_pca_df = pd.DataFrame(A10_pca_result, columns=["PCA2_value"])
+A11_pca_df = pd.DataFrame(A11_pca_result, columns=["PCA3_value"])
 
 """
 On a deux choix : 
@@ -141,14 +142,15 @@ data_cluster['KMeans_Label'] = kmeans_labels
 data_cluster['Hierarchical_Label'] = hierarchical_labels
 data_cluster['DBSCAN_Label'] = dbscan_labels
 
-"""
-plt.scatter(data_cluster.iloc[:, 0], data_cluster.iloc[:, 1], data_cluster.iloc[:, 2], c=kmeans_labels, cmap='viridis', s=50)
-plt.title("K-Means Clustering")
-plt.set_xlabel("PCA1 (A9)")
-plt.set_ylabel("PCA2 (A10)")
-plt.set_zlabel("PCA3 (A11)")
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(data_cluster.iloc[:, 0], data_cluster.iloc[:, 1], data_cluster.iloc[:, 2],
+           c=data_cluster['KMeans_Label'], cmap='viridis', s=50)
+ax.set_title("K-Means Clustering")
+ax.set_xlabel("PCA1 (A9)")
+ax.set_ylabel("PCA2 (A10)")
+ax.set_zlabel("PCA3 (A11)")
 plt.show()
-"""
 
 plt.figure(figsize=(10, 7))
 dendrogram(linkage_matrix)
@@ -156,8 +158,19 @@ plt.title("Clustering Hiérarchique")
 plt.show()
 
 
+#data_3d_array = data_cluster[["PCA1_value", "PCA2_value", "PCA3_value"]].values
+fig = plt.figure(figsize=(10, 7))
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(data_cluster.iloc[:, 0], data_cluster.iloc[:, 1], data_cluster.iloc[:, 2],
+           c=data_cluster['DBSCAN_Label'], cmap='viridis', s=50)
+ax.set_title("DBSCAN Clustering")
+ax.set_xlabel("PCA1 (A9)")
+ax.set_ylabel("PCA2 (A10)")
+ax.set_zlabel("PCA3 (A11)")
+plt.show()
 
 
+"""
 #print(p)
 
 p['A9'] = p.iloc[:, 0:15].mean(axis=1)
@@ -183,7 +196,7 @@ for i in range(1,11):
 #plt.xlabel("Number of clusters")
 #plt.ylabel("WCSS")
 #plt.show()
-
+"""
 """
 model = KMeans(n_clusters = 5, init = "k-means++", max_iter = 300, n_init = 10, random_state = 0)
 y_clusters = model.fit_predict(X)
@@ -202,7 +215,7 @@ ax.set_zlabel('Spending Score-->')
 ax.legend()
 plt.show()
 """
-
+"""
 d = df.loc[:, ["A11", "A12", "A13", "A14", "A4", "A5", "A5bis", "A8_1_slice", "A8_2_slice", "A8_3_slice", "A8_4_slice", "B1_1_slice", "B1_2_slice", "B2_1_slice", "B2_2_slice", "B3", "B4", "B6", "C1_1_slice", 'C1_2_slice', 'C1_3_slice', 'C1_4_slice', 'C1_5_slice', 'C1_6_slice', 'C1_7_slice', 'C1_8_slice', 'C1_9_slice']]
 d["A8"] = d.iloc[:, 7:10].mean(axis=1)
 d["B1"] = d.iloc[:, 11:12].mean(axis=1)
@@ -244,3 +257,4 @@ ax.set_ylabel('Anual Income-->')
 ax.set_zlabel('Spending Score-->')
 ax.legend()
 plt.show()
+"""
