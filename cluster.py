@@ -93,7 +93,11 @@ A11 = df.loc[:, ["A11_1_slice", "A11_2_slice", "A11_3_slice", "A11_4_slice", "A1
 """
 On inverse les valeurs pour les questions "négatives"
 """
+<<<<<<< HEAD
 A9["A9_5_slie"] = A9["A9_5_slice"].map({1: 4, 2: 3, 3: 2, 4: 1})
+=======
+A9["A9_5_slice"] = A9["A9_5_slice"].map({1: 4, 2: 3, 3: 2, 4: 1})
+>>>>>>> 784a86543a44be4ef217c3d2b9801e0cff499854
 A10["A10_6_slice"] = A10["A10_6_slice"].map({1: 4, 2: 3, 3: 2, 4: 1})
 
 """
