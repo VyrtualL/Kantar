@@ -1,0 +1,17 @@
+[project]
+name = "kantar"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "factor-analyzer>=0.5.1",
+    "matplotlib>=3.10.0",
+    "numpy>=2.2.2",
+    "prince>=0.15.0",
+    "scikit-learn>=1.6.1",
+    "scipy>=1.15.1",
+    "seaborn>=0.13.2",
+    "tqdm>=4.67.1",
+    "xgboost>=2.1.3",
+]
